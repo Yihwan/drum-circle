@@ -1,14 +1,17 @@
 // listen and handle keyboard presses
-document.addEventListener('keydown', playSound);
+document.addEventListener('keydown', function(e){
+  playSound(e.keyCode);
+});
 
 // listen and handle clicks
 document.addEventListener('click', function(e) {
-  console.log(e);
+  const clickedKey = e.path[1]['dataset'].key;
+  playSound(clickedKey);
 });
 
-function playSound(e) {
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+function playSound(keyCode) {
+  const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   // return for invalid keypress
   if (!audio) {
     return;
